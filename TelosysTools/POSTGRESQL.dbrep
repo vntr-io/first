@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Telosys Database Repository --><root>
+<tableList databaseId="0" databaseName="POSTGRESQL" databaseProductName="PostgreSQL" generation="2016-03-06 18:11:59">
+<table catalog="" databaseType="TABLE" javaBean="Friendships" name="friendships" schema="public">
+<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="user_id_1" dbNotNull="true" dbPosition="1" dbPrimaryKey="true" dbSize="10" dbTypeName="int4" inputType="number" javaName="userId1" javaType="java.lang.Integer" jdbcTypeCode="4" label="User id 1" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="user_id_2" dbNotNull="true" dbPosition="2" dbPrimaryKey="true" dbSize="10" dbTypeName="int4" inputType="number" javaName="userId2" javaType="java.lang.Integer" jdbcTypeCode="4" label="User id 2" notNull="true" selected="true"/>
+<fk name="friendships_user_id_1_fkey">
+<fkcol colname="user_id_1" colref="id" deferrable="7" deleterule="3" sequence="1" tablename="friendships" tableref="users" updaterule="3"/>
+</fk>
+<fk name="friendships_user_id_2_fkey">
+<fkcol colname="user_id_2" colref="id" deferrable="7" deleterule="3" sequence="1" tablename="friendships" tableref="users" updaterule="3"/>
+</fk>
+</table>
+<table catalog="" databaseType="TABLE" javaBean="GroupMemberships" name="group_memberships" schema="public">
+<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="user_id" dbNotNull="true" dbPosition="1" dbPrimaryKey="true" dbSize="10" dbTypeName="int4" inputType="number" javaName="userId" javaType="java.lang.Integer" jdbcTypeCode="4" label="User id" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="group_id" dbNotNull="true" dbPosition="2" dbPrimaryKey="true" dbSize="10" dbTypeName="int4" inputType="number" javaName="groupId" javaType="java.lang.Integer" jdbcTypeCode="4" label="Group id" notNull="true" selected="true"/>
+<fk name="group_memberships_group_id_fkey">
+<fkcol colname="group_id" colref="id" deferrable="7" deleterule="3" sequence="1" tablename="group_memberships" tableref="groups" updaterule="3"/>
+</fk>
+<fk name="group_memberships_user_id_fkey">
+<fkcol colname="user_id" colref="id" deferrable="7" deleterule="3" sequence="1" tablename="group_memberships" tableref="users" updaterule="3"/>
+</fk>
+</table>
+<table catalog="" databaseType="TABLE" javaBean="Groups" name="groups" schema="public">
+<column dbAutoIncremented="true" dbComment="" dbDefaultValue="nextval('group_id_seq'::regclass)" dbName="id" dbNotNull="true" dbPosition="1" dbPrimaryKey="true" dbSize="10" dbTypeName="serial" inputType="number" javaName="id" javaType="java.lang.Integer" jdbcTypeCode="4" label="Id" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="name" dbNotNull="true" dbPosition="2" dbSize="63" dbTypeName="varchar" inputType="text" javaName="name" javaType="java.lang.String" jdbcTypeCode="12" label="Name" maxLength="63" notEmpty="true" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="description" dbNotNull="true" dbPosition="3" dbSize="255" dbTypeName="varchar" inputType="text" javaName="description" javaType="java.lang.String" jdbcTypeCode="12" label="Description" maxLength="255" notEmpty="true" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="manager_id" dbNotNull="false" dbPosition="4" dbSize="10" dbTypeName="int4" inputType="number" javaName="managerId" javaType="java.lang.Integer" jdbcTypeCode="4" label="Manager id" notNull="false" selected="true"/>
+<link cardinality="ManyToMany" cascade="" fetch="DEFAULT" foreignKeyName="" id="LINK_JT_public.memberships_O" inverseSideOf="" javaName="listOfUsers2" javaType="java.util.List" joinTableName="memberships" mappedBy="" optional="UNDEFINED" owningSide="true" sourceTableName="groups" targetEntity="Users" targetTableName="users" used="true">
+<joinTable name="memberships">
+<joinColumns>
+<joinColumn insertable="false" name="group_id" nullable="true" referencedColumnName="id" unique="false" updatable="false"/>
+</joinColumns>
+<inverseJoinColumns>
+<joinColumn insertable="false" name="user_id" nullable="true" referencedColumnName="id" unique="false" updatable="false"/>
+</inverseJoinColumns>
+</joinTable>
+</link>
+<link cardinality="ManyToMany" cascade="" fetch="DEFAULT" foreignKeyName="" id="LINK_JT_public.group_memberships_O" inverseSideOf="" javaName="listOfUsers" javaType="java.util.List" joinTableName="group_memberships" mappedBy="" optional="UNDEFINED" owningSide="true" sourceTableName="groups" targetEntity="Users" targetTableName="users" used="true">
+<joinTable name="group_memberships">
+<joinColumns>
+<joinColumn insertable="false" name="group_id" nullable="true" referencedColumnName="id" unique="false" updatable="false"/>
+</joinColumns>
+<inverseJoinColumns>
+<joinColumn insertable="false" name="user_id" nullable="true" referencedColumnName="id" unique="false" updatable="false"/>
+</inverseJoinColumns>
+</joinTable>
+</link>
+</table>
+<table catalog="" databaseType="TABLE" javaBean="Memberships" name="memberships" schema="public">
+<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="user_id" dbNotNull="true" dbPosition="1" dbPrimaryKey="true" dbSize="10" dbTypeName="int4" inputType="number" javaName="userId" javaType="java.lang.Integer" jdbcTypeCode="4" label="User id" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="group_id" dbNotNull="true" dbPosition="2" dbPrimaryKey="true" dbSize="10" dbTypeName="int4" inputType="number" javaName="groupId" javaType="java.lang.Integer" jdbcTypeCode="4" label="Group id" notNull="true" selected="true"/>
+<fk name="memberships_group_id_fkey">
+<fkcol colname="group_id" colref="id" deferrable="7" deleterule="3" sequence="1" tablename="memberships" tableref="groups" updaterule="3"/>
+</fk>
+<fk name="memberships_user_id_fkey">
+<fkcol colname="user_id" colref="id" deferrable="7" deleterule="3" sequence="1" tablename="memberships" tableref="users" updaterule="3"/>
+</fk>
+</table>
+<table catalog="" databaseType="TABLE" javaBean="Users" name="users" schema="public">
+<column dbAutoIncremented="true" dbComment="" dbDefaultValue="nextval('user_id_seq'::regclass)" dbName="id" dbNotNull="true" dbPosition="1" dbPrimaryKey="true" dbSize="10" dbTypeName="serial" inputType="number" javaName="id" javaType="java.lang.Integer" jdbcTypeCode="4" label="Id" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="username" dbNotNull="true" dbPosition="2" dbSize="63" dbTypeName="varchar" inputType="text" javaName="username" javaType="java.lang.String" jdbcTypeCode="12" label="Username" maxLength="63" notEmpty="true" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="password" dbNotNull="true" dbPosition="3" dbSize="31" dbTypeName="varchar" inputType="text" javaName="password" javaType="java.lang.String" jdbcTypeCode="12" label="Password" maxLength="31" notEmpty="true" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="email" dbNotNull="true" dbPosition="4" dbSize="255" dbTypeName="varchar" inputType="text" javaName="email" javaType="java.lang.String" jdbcTypeCode="12" label="Email" maxLength="255" notEmpty="true" notNull="true" selected="true"/>
+<link cardinality="ManyToMany" cascade="" fetch="DEFAULT" foreignKeyName="" id="LINK_JT_public.friendships_I" inverseSideOf="LINK_JT_public.friendships_O" javaName="listOfUsers2" javaType="java.util.List" joinTableName="friendships" mappedBy="listOfUsers" optional="UNDEFINED" owningSide="false" sourceTableName="users" targetEntity="Users" targetTableName="users" used="true"/>
+<link cardinality="OneToMany" cascade="" fetch="DEFAULT" foreignKeyName="vents_user_id_fkey" id="LINK_FK_vents_user_id_fkey_I" inverseSideOf="LINK_FK_vents_user_id_fkey_O" javaName="listOfVents" javaType="java.util.List" joinTableName="" mappedBy="users" optional="UNDEFINED" owningSide="false" sourceTableName="users" targetEntity="Vents" targetTableName="vents" used="true"/>
+<link cardinality="ManyToMany" cascade="" fetch="DEFAULT" foreignKeyName="" id="LINK_JT_public.group_memberships_I" inverseSideOf="LINK_JT_public.group_memberships_O" javaName="listOfGroups" javaType="java.util.List" joinTableName="group_memberships" mappedBy="listOfUsers" optional="UNDEFINED" owningSide="false" sourceTableName="users" targetEntity="Groups" targetTableName="groups" used="true"/>
+<link cardinality="ManyToMany" cascade="" fetch="DEFAULT" foreignKeyName="" id="LINK_JT_public.memberships_I" inverseSideOf="LINK_JT_public.memberships_O" javaName="listOfGroups2" javaType="java.util.List" joinTableName="memberships" mappedBy="listOfUsers2" optional="UNDEFINED" owningSide="false" sourceTableName="users" targetEntity="Groups" targetTableName="groups" used="true"/>
+<link cardinality="ManyToMany" cascade="" fetch="DEFAULT" foreignKeyName="" id="LINK_JT_public.friendships_O" inverseSideOf="" javaName="listOfUsers" javaType="java.util.List" joinTableName="friendships" mappedBy="" optional="UNDEFINED" owningSide="true" sourceTableName="users" targetEntity="Users" targetTableName="users" used="true">
+<joinTable name="friendships">
+<joinColumns>
+<joinColumn insertable="false" name="user_id_1" nullable="true" referencedColumnName="id" unique="false" updatable="false"/>
+</joinColumns>
+<inverseJoinColumns>
+<joinColumn insertable="false" name="user_id_2" nullable="true" referencedColumnName="id" unique="false" updatable="false"/>
+</inverseJoinColumns>
+</joinTable>
+</link>
+</table>
+<table catalog="" databaseType="TABLE" javaBean="Vents" name="vents" schema="public">
+<column dbAutoIncremented="true" dbComment="" dbDefaultValue="nextval('vent_id_seq'::regclass)" dbName="id" dbNotNull="true" dbPosition="1" dbPrimaryKey="true" dbSize="10" dbTypeName="serial" inputType="number" javaName="id" javaType="java.lang.Integer" jdbcTypeCode="4" label="Id" notNull="true" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbForeignKey="true" dbName="user_id" dbNotNull="false" dbPosition="2" dbSize="10" dbTypeName="int4" inputType="number" javaName="userId" javaType="java.lang.Integer" jdbcTypeCode="4" label="User id" notNull="false" selected="true"/>
+<column dbComment="" dbDefaultValue="" dbName="text" dbNotNull="true" dbPosition="3" dbSize="255" dbTypeName="varchar" inputType="text" javaName="text" javaType="java.lang.String" jdbcTypeCode="12" label="Text" maxLength="255" notEmpty="true" notNull="true" selected="true"/>
+<column dateType="DT" dbComment="" dbDefaultValue="" dbName="zeit" dbNotNull="true" dbPosition="4" dbSize="29" dbTypeName="timestamp" inputType="" javaName="zeit" javaType="java.util.Date" jdbcTypeCode="93" label="Zeit" notNull="true" selected="true"/>
+<fk name="vents_user_id_fkey">
+<fkcol colname="user_id" colref="id" deferrable="7" deleterule="3" sequence="1" tablename="vents" tableref="users" updaterule="3"/>
+</fk>
+<link cardinality="ManyToOne" cascade="" fetch="DEFAULT" foreignKeyName="vents_user_id_fkey" id="LINK_FK_vents_user_id_fkey_O" inverseSideOf="" javaName="users" javaType="Users" joinTableName="" mappedBy="" optional="UNDEFINED" owningSide="true" sourceTableName="vents" targetEntity="Users" targetTableName="users" used="true">
+<joinColumns>
+<joinColumn insertable="false" name="user_id" nullable="true" referencedColumnName="id" unique="false" updatable="false"/>
+</joinColumns>
+</link>
+</table>
+</tableList>
+</root>

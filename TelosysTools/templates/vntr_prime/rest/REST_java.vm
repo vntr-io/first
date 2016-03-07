@@ -1,0 +1,75 @@
+##Adapted from https://github.com/telosys-tools-community/front-springmvc-TT210
+#set( $uncapitalizedEntityName = $fn.uncapitalize($entity.name) )
+##
+#set( $pkElementsVariables = $fn.argumentsList($entity.keyAttributes) )
+##
+#set( $pkPath = "" )
+#foreach( $attribute in $entity.keyAttributes )
+#if( $foreach.count > 1 )
+#set( $pkPath = "${pkPath}/" )
+#end
+#set( $pkPath = "${pkPath}{${attribute.name}}" )
+#end
+##
+#set( $pkPathVariables = "" )
+#foreach( $attribute in $entity.keyAttributes )
+#if( $foreach.count > 1 )
+#set( $pkPathVariables = "${pkPathVariables}, " )
+#end
+#set( $pkPathVariables = "${pkPathVariables}@PathVariable(${QUOT}${attribute.name}${QUOT}) $attribute.type $attribute.name" )
+#end
+##
+##
+package ${REST_PKG};
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import ${BEAN_PKG}.${entity.name};
+import ${JSON_PKG}.${entity.name}Json;
+import ${SERVICE_PKG}.${entity.name}Service;
+import ${MAPPER_PKG}.${entity.name}BeanJsonMapper;
+
+@RestController
+public class ${entity.name}RestController
+{
+    @Autowired
+    private ${entity.name}Service ${uncapitalizedEntityName}Service;
+
+    @Autowired
+    private ${entity.name}BeanJsonMapper ${uncapitalizedEntityName}BeanJsonMapper;
+
+    @RequestMapping( value="/${uncapitalizedEntityName}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ${entity.name}Json create(@RequestBody ${entity.name}Json ${uncapitalizedEntityName})
+    {
+		${entity.name} convertedBean = ${uncapitalizedEntityName}BeanJsonMapper.mapJsonToBean(${uncapitalizedEntityName});
+		${entity.name} createdBean = ${uncapitalizedEntityName}Service.create(convertedBean);
+        return ${uncapitalizedEntityName}BeanJsonMapper.mapBeanToJson(createdBean);
+    }
+
+    @RequestMapping( value="/${uncapitalizedEntityName}/${pkPath}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ${entity.name}Json read(${pkPathVariables})
+    {
+    	${entity.name} retrievedBean = ${uncapitalizedEntityName}Service.findById(${pkElementsVariables});
+        return ${uncapitalizedEntityName}BeanJsonMapper.mapBeanToJson(retrievedBean);
+    }
+
+    @RequestMapping( value="/${uncapitalizedEntityName}/${pkPath}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ${entity.name}Json update(${pkPathVariables}, @RequestBody ${entity.name}Json ${uncapitalizedEntityName})
+    {
+		${entity.name} convertedBean = ${uncapitalizedEntityName}BeanJsonMapper.mapJsonToBean(${uncapitalizedEntityName});
+		${entity.name} updatedBean = ${uncapitalizedEntityName}Service.update(convertedBean);
+        return ${uncapitalizedEntityName}BeanJsonMapper.mapBeanToJson(updatedBean);
+    }
+
+    @RequestMapping( value="/${uncapitalizedEntityName}/${pkPath}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void delete(${pkPathVariables})
+    {
+        ${uncapitalizedEntityName}Service.delete(${pkElementsVariables});
+    }
+}

@@ -1,0 +1,60 @@
+#set( $uncapitalizedEntityName = $fn.uncapitalize($entity.name) )
+package ${SERVICE_IMPL_PKG};
+
+#foreach( $import in $java.imports($entity) )
+import $import;
+#end
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import ${BEAN_PKG}.${entity.name};
+import ${ENTITY_PKG}.${entity.name}Entity;
+#if ( $entity.hasCompositePrimaryKey() )
+import ${ENTITY_PKG}.${entity.name}EntityKey;
+#end
+import ${JPA_PKG}.${entity.name}JpaRepository;
+import ${MAPPER_PKG}.${entity.name}EntityBeanMapper;
+
+public class ${entity.name}ServiceImplTest
+{
+    //TODO: autowire or mock these
+	private ${entity.name}JpaRepository ${uncapitalizedEntityName}JpaRepository; 
+    private ${entity.name}EntityBeanMapper ${uncapitalizedEntityName}EntityBeanMapper;
+
+    @Test
+    public void testFindById()
+    {
+        //TODO: do this
+    }
+
+    @Test
+    public void testFindAll()
+    {
+        //TODO: do this
+    }
+
+    @Test
+    public void testSave()
+    {
+        //TODO: do this
+    }
+
+    @Test
+    public void testUpdate()
+    {
+        //TODO: do this
+    }
+
+    @Test
+    public void testCreate()
+    {
+        //TODO: do this
+    }
+
+    @Test
+    public void testDelete()
+    {
+        //TODO: do this
+    }
+}

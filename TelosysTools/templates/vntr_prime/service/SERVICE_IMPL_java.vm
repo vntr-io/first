@@ -1,0 +1,84 @@
+##Adapted from https://github.com/telosys-tools-community/front-springmvc-TT210
+#set( $uncapitalizedEntityName = $fn.uncapitalize($entity.name) )
+#set( $pkElementsVariables = $fn.argumentsList($entity.keyAttributes) )
+/* Created on $today.date at $today.time */
+package ${SERVICE_IMPL_PKG};
+
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import ${SERVICE_PKG}.${entity.name}Service;
+import ${BEAN_PKG}.${entity.name};
+import ${JPA_PKG}.${entity.name}JpaRepository;
+import ${ENTITY_PKG}.${entity.name}Entity;
+#if ( $entity.hasCompositePrimaryKey() )
+import ${ENTITY_PKG}.${entity.name}EntityKey;
+#end
+import ${MAPPER_PKG}.${entity.name}EntityBeanMapper;
+
+public class ${entity.name}ServiceImpl implements ${entity.name}Service
+{
+	@Autowired
+	private ${entity.name}JpaRepository ${uncapitalizedEntityName}JpaRepository; 
+
+    @Autowired
+    private ${entity.name}EntityBeanMapper ${uncapitalizedEntityName}EntityBeanMapper;
+
+	public ${entity.name} findById( $fn.argumentsListWithType($entity.keyAttributes)  )
+	{
+#if ( $entity.hasCompositePrimaryKey() )
+        ${entity.name}EntityKey key = new ${entity.name}EntityKey(${pkElementsVariables});
+        ${entity.name}Entity entity = ${uncapitalizedEntityName}JpaRepository.findOne(key);
+#else 
+        ${entity.name}Entity entity = ${uncapitalizedEntityName}JpaRepository.findOne(${pkElementsVariables});
+#end
+        return ${uncapitalizedEntityName}EntityBeanMapper.mapEntityToBean(entity);
+	}
+
+	public List<${entity.name}> findAll()
+	{
+		List<${entity.name}> list = new LinkedList<${entity.name}>();
+		Iterator<${entity.name}Entity> iter = ${uncapitalizedEntityName}JpaRepository.findAll().iterator();
+		while(iter.hasNext())
+		{
+			list.add(${uncapitalizedEntityName}EntityBeanMapper.mapEntityToBean(iter.next()));
+		}
+		return list;
+	}
+
+	public ${entity.name} save(${entity.name} bean)
+	{
+		return persist(bean);
+	}
+
+	public ${entity.name} update(${entity.name} bean)
+	{
+		return persist(bean);
+	}
+
+	public ${entity.name} create(${entity.name} bean)
+	{
+		return persist(bean);
+	}
+
+	public void delete( $fn.argumentsListWithType($entity.keyAttributes) )
+	{
+##		${uncapitalizedEntityName}JpaRepository.delete(${pkElementsVariables});
+#if ( $entity.hasCompositePrimaryKey() )
+        ${entity.name}EntityKey key = new ${entity.name}EntityKey(${pkElementsVariables});
+        ${uncapitalizedEntityName}JpaRepository.delete(key);
+#else 
+        ${uncapitalizedEntityName}JpaRepository.delete(${pkElementsVariables});
+#end
+	}
+
+	private ${entity.name} persist(${entity.name} bean)
+	{
+		${entity.name}Entity entity = ${uncapitalizedEntityName}EntityBeanMapper.mapBeanToEntity(bean);
+		${entity.name}Entity persistedEntity = ${uncapitalizedEntityName}JpaRepository.save(entity);
+		return ${uncapitalizedEntityName}EntityBeanMapper.mapEntityToBean(persistedEntity);
+	}
+}

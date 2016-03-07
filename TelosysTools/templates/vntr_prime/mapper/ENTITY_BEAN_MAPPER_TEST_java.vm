@@ -1,0 +1,53 @@
+package ${MAPPER_PKG};
+
+#foreach( $import in $java.imports($entity) )
+import $import;
+#end
+import static org.junit.Assert.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.Test;
+
+import ${ENTITY_PKG}.${entity.name}Entity;
+import ${BEAN_PKG}.${entity.name};
+
+public class ${entity.name}EntityBeanMapperTest
+{
+    private static final ${entity.name}EntityBeanMapper mapper = new ${entity.name}EntityBeanMapper();
+
+    private static final Map<${entity.name}, ${entity.name}Entity> beanToEntityMap = new HashMap<>();
+    static
+    {
+        //TODO: fill out beanToEntityMap
+    }
+
+    private static final Map<${entity.name}Entity, ${entity.name}> entityToBeanMap = new HashMap<>();
+    static
+    {
+        //TODO: fill out entityToBeanMap
+    }
+
+    @Test
+    public void testMapBeanToEntity()
+    {
+        for(${entity.name} input : beanToEntityMap.keySet())
+        {
+            ${entity.name}Entity expectedOutput = beanToEntityMap.get(input);
+            ${entity.name}Entity output = mapper.mapBeanToEntity(input);
+            assertEquals(output, expectedOutput);
+        }
+    }
+
+    @Test
+    public void testMapEntityToBean()
+    {
+        for(${entity.name}Entity input : entityToBeanMap.keySet())
+        {
+            ${entity.name} expectedOutput = entityToBeanMap.get(input);
+            ${entity.name} output = mapper.mapEntityToBean(input);
+            assertEquals(output, expectedOutput);
+        }
+    }
+}

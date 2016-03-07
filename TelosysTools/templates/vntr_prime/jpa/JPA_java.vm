@@ -1,0 +1,18 @@
+##Adapted from https://github.com/telosys-tools/persistence-springdatajpa-TT210-R2
+#if( $entity.hasCompositePrimaryKey() )
+#set( $entityKeyType = ${entity.name} + "EntityKey" )
+#else
+#set( $entityKeyType = ${entity.keyAttributes[0].formattedType(0)} )
+#end
+##--------------------------------------------------------------------------------------------------------
+package ${JPA_PKG};
+
+import org.springframework.data.repository.PagingAndSortingRepository;
+import ${ENTITY_PKG}.${entity.name}Entity;
+#if ( $entity.hasCompositePrimaryKey() )
+import ${ENTITY_PKG}.${entityKeyType};
+#end
+
+public interface ${entity.name}JpaRepository extends PagingAndSortingRepository<${entity.name}Entity, ${entityKeyType}>
+{
+}

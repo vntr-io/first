@@ -1,0 +1,53 @@
+package ${MAPPER_PKG};
+
+#foreach( $import in $java.imports($entity) )
+import $import;
+#end
+import static org.junit.Assert.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.junit.Test;
+
+import ${BEAN_PKG}.${entity.name};
+import ${JSON_PKG}.${entity.name}Json;
+
+public class ${entity.name}BeanJsonMapperTest
+{
+    private static final ${entity.name}BeanJsonMapper mapper = new ${entity.name}BeanJsonMapper();
+
+    private static final Map<${entity.name}Json, ${entity.name}> jsonToBeanMap = new HashMap<>();
+    static
+    {
+        //TODO: fill out jsonToBeanMap
+    }
+
+    private static final Map<${entity.name}, ${entity.name}Json> beanToJsonMap = new HashMap<>();
+    static
+    {
+        //TODO: fill out beanToJsonMap
+    }
+
+    @Test
+    public void testMapBeanToJson()
+    {
+        for(${entity.name} input : beanToJsonMap.keySet())
+        {
+            ${entity.name}Json expectedOutput = beanToJsonMap.get(input);
+            ${entity.name}Json output = mapper.mapBeanToJson(input);
+            assertEquals(output, expectedOutput);
+        }
+    }
+
+    @Test
+    public void testMapJsonToBean()
+    {
+        for(${entity.name}Json input : jsonToBeanMap.keySet())
+        {
+            ${entity.name} expectedOutput = jsonToBeanMap.get(input);
+            ${entity.name} output = mapper.mapJsonToBean(input);
+            assertEquals(output, expectedOutput);
+        }
+    }
+}
