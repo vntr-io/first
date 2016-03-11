@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import ${SERVICE_PKG}.${entity.name}Service;
 import ${BEAN_PKG}.${entity.name};
@@ -19,6 +20,7 @@ import ${ENTITY_PKG}.${entity.name}EntityKey;
 #end
 import ${MAPPER_PKG}.${entity.name}EntityBeanMapper;
 
+@Component
 public class ${entity.name}ServiceImpl implements ${entity.name}Service
 {
 	@Autowired

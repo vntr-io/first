@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import io.vntr.service.FriendshipsService;
 import io.vntr.bean.Friendships;
@@ -14,6 +15,7 @@ import io.vntr.jpa.bean.FriendshipsEntity;
 import io.vntr.jpa.bean.FriendshipsEntityKey;
 import io.vntr.mapper.FriendshipsEntityBeanMapper;
 
+@Component
 public class FriendshipsServiceImpl implements FriendshipsService
 {
 	@Autowired

@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import io.vntr.service.GroupsService;
 import io.vntr.bean.Groups;
@@ -13,6 +14,7 @@ import io.vntr.jpa.GroupsJpaRepository;
 import io.vntr.jpa.bean.GroupsEntity;
 import io.vntr.mapper.GroupsEntityBeanMapper;
 
+@Component
 public class GroupsServiceImpl implements GroupsService
 {
 	@Autowired

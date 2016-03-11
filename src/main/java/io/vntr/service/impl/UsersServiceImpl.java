@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import io.vntr.service.UsersService;
 import io.vntr.bean.Users;
@@ -13,6 +14,7 @@ import io.vntr.jpa.UsersJpaRepository;
 import io.vntr.jpa.bean.UsersEntity;
 import io.vntr.mapper.UsersEntityBeanMapper;
 
+@Component
 public class UsersServiceImpl implements UsersService
 {
 	@Autowired

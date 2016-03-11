@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Table(name="vents", schema="public" )
 // Define named queries here
 @NamedQueries ( {
-  @NamedQuery ( name="Vents.countAll", query="SELECT COUNT(x) FROM Vents x" )
+  @NamedQuery ( name="Vents.countAll", query="SELECT COUNT(x) FROM VentsEntity x" )
 } )
 public class VentsEntity implements Serializable
 {
@@ -18,7 +18,8 @@ public class VentsEntity implements Serializable
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @SequenceGenerator(name="vents_id_seq", sequenceName="vents_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="vents_id_seq")
     @Column(name="id", nullable=false)
     private Integer id ;
 

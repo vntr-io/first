@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import io.vntr.service.MembershipsService;
 import io.vntr.bean.Memberships;
@@ -14,6 +15,7 @@ import io.vntr.jpa.bean.MembershipsEntity;
 import io.vntr.jpa.bean.MembershipsEntityKey;
 import io.vntr.mapper.MembershipsEntityBeanMapper;
 
+@Component
 public class MembershipsServiceImpl implements MembershipsService
 {
 	@Autowired

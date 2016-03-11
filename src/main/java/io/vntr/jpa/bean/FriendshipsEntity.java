@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Table(name="friendships", schema="public" )
 // Define named queries here
 @NamedQueries ( {
-  @NamedQuery ( name="Friendships.countAll", query="SELECT COUNT(x) FROM Friendships x" )
+  @NamedQuery ( name="Friendships.countAll", query="SELECT COUNT(x) FROM FriendshipsEntity x" )
 } )
 public class FriendshipsEntity implements Serializable
 {

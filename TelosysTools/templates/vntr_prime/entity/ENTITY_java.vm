@@ -20,7 +20,7 @@ import $import;
 $jpa.entityAnnotations(0, $entity)
 // Define named queries here
 @NamedQueries ( {
-  @NamedQuery ( name="${entity.name}.countAll", query="SELECT COUNT(x) FROM ${entity.name} x" )
+  @NamedQuery ( name="${entity.name}.countAll", query="SELECT COUNT(x) FROM ${entity.name}Entity x" )
 } )
 public class ${entity.name}Entity implements Serializable
 {

@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import io.vntr.service.VentsService;
 import io.vntr.bean.Vents;
@@ -13,6 +14,7 @@ import io.vntr.jpa.VentsJpaRepository;
 import io.vntr.jpa.bean.VentsEntity;
 import io.vntr.mapper.VentsEntityBeanMapper;
 
+@Component
 public class VentsServiceImpl implements VentsService
 {
 	@Autowired

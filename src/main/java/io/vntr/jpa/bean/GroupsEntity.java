@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Table(name="groups", schema="public" )
 // Define named queries here
 @NamedQueries ( {
-  @NamedQuery ( name="Groups.countAll", query="SELECT COUNT(x) FROM Groups x" )
+  @NamedQuery ( name="Groups.countAll", query="SELECT COUNT(x) FROM GroupsEntity x" )
 } )
 public class GroupsEntity implements Serializable
 {
@@ -17,7 +17,8 @@ public class GroupsEntity implements Serializable
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @SequenceGenerator(name="groups_id_seq", sequenceName="groups_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="groups_id_seq")
     @Column(name="id", nullable=false)
     private Integer id ;
 
