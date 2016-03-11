@@ -1,4 +1,5 @@
 ##Adapted from https://github.com/telosys-tools/persistence-springdatajpa-TT210-R2
+#set( $uncapitalizedEntityName = $fn.uncapitalize($entity.name) )
 #set( $keyFields = $entity.getAttributesByCriteria( $const.KEY ) )
 #set( $dataFields = $entity.getAttributesByCriteria( $const.NOT_KEY ) )
 #set( $allMappedFields = $fn.concatLists($entity.keyAttributes, $dataFields) )
@@ -38,7 +39,10 @@ public class ${entity.name}Entity implements Serializable
     // ENTITY PRIMARY KEY ( BASED ON A SINGLE FIELD )
     //----------------------------------------------------------------------
 #foreach( $field in $entity.keyAttributes )
-$jpa.fieldAnnotations(4, $field)
+    @Id
+    @SequenceGenerator(name="${uncapitalizedEntityName}_$field.formattedName(0)_seq", sequenceName="${uncapitalizedEntityName}_$field.formattedName(0)_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="${uncapitalizedEntityName}_$field.formattedName(0)_seq")
+    @Column(name="$field.formattedName(0)", nullable=false)
     private $field.formattedType(0) $field.formattedName(0) #if($field.hasInitialValue())= ${field.initialValue} #end;
 #end
 

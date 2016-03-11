@@ -42,10 +42,10 @@ CREATE TABLE friendships (
 ALTER TABLE friendships OWNER TO postgres;
 
 --
--- Name: group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: groups_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE group_id_seq
+CREATE SEQUENCE groups_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -53,10 +53,10 @@ CREATE SEQUENCE group_id_seq
     CACHE 1;
 
 
-ALTER TABLE group_id_seq OWNER TO postgres;
+ALTER TABLE groups_id_seq OWNER TO postgres;
 
 CREATE TABLE groups (
-    id integer DEFAULT nextval('group_id_seq'::regclass) NOT NULL,
+    id integer DEFAULT nextval('groups_id_seq'::regclass) NOT NULL,
     name character varying(63) NOT NULL,
     description character varying(255) NOT NULL,
     manager_id integer
@@ -78,10 +78,10 @@ CREATE TABLE memberships (
 ALTER TABLE memberships OWNER TO postgres;
 
 --
--- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE user_id_seq
+CREATE SEQUENCE users_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -89,14 +89,14 @@ CREATE SEQUENCE user_id_seq
     CACHE 1;
 
 
-ALTER TABLE user_id_seq OWNER TO postgres;
+ALTER TABLE users_id_seq OWNER TO postgres;
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE users (
-    id integer DEFAULT nextval('user_id_seq'::regclass) NOT NULL,
+    id integer DEFAULT nextval('users_id_seq'::regclass) NOT NULL,
     username character varying(63) NOT NULL,
     password character varying(31) NOT NULL,
     email character varying(255) NOT NULL
@@ -106,10 +106,10 @@ CREATE TABLE users (
 ALTER TABLE users OWNER TO postgres;
 
 --
--- Name: vent_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: vents_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE vent_id_seq
+CREATE SEQUENCE vents_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -117,14 +117,14 @@ CREATE SEQUENCE vent_id_seq
     CACHE 1;
 
 
-ALTER TABLE vent_id_seq OWNER TO postgres;
+ALTER TABLE vents_id_seq OWNER TO postgres;
 
 --
 -- Name: vents; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE vents (
-    id integer DEFAULT nextval('vent_id_seq'::regclass) NOT NULL,
+    id integer DEFAULT nextval('vents_id_seq'::regclass) NOT NULL,
     user_id integer,
     text character varying(255) NOT NULL,
     zeit timestamp without time zone NOT NULL
@@ -142,10 +142,10 @@ COPY friendships (user_id_1, user_id_2) FROM stdin;
 
 
 --
--- Name: group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('group_id_seq', 1, false);
+SELECT pg_catalog.setval('groups_id_seq', 1, false);
 
 
 --
@@ -165,10 +165,10 @@ COPY memberships (user_id, group_id) FROM stdin;
 
 
 --
--- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('user_id_seq', 1, false);
+SELECT pg_catalog.setval('users_id_seq', 1, false);
 
 
 --
@@ -180,10 +180,10 @@ COPY users (id, username, password, email) FROM stdin;
 
 
 --
--- Name: vent_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: vents_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('vent_id_seq', 1, false);
+SELECT pg_catalog.setval('vents_id_seq', 1, false);
 
 
 --
